@@ -83,25 +83,22 @@ object SecretRecipeDecoder {
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
-//    val lines = Source.fromFile("src/main/resources/secret_recipe.txt").getLines.toList
-//    val decodedIngredients = lines.map(x => decodeIngredient(x))
-//    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
-//    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
-//    bw.write(recipeText)
+    // both of these approaches seemed to work...or at least the first one did...
+    // but then stopped working and I don't know why
 
-    val bufferedSource = Source.fromFile("src/main/resources/secret_recipe.txt")
-    val lines = bufferedSource.getLines.toList
+    val lines = Source.fromFile("src/main/resources/secret_recipe.txt").getLines().toList
     val decodedIngredients = lines.map(x => decodeIngredient(x))
     val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
     val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
     bw.write(recipeText)
-    bufferedSource.close()
 
-//    val bufferedSource = Source.fromFile("example.txt")
-//    for (line <- bufferedSource.getLines) {
-//      println(line.toUpperCase)
-//    }
-//
-//    bufferedSource.close
+//// alternate approach using .close()
+//    val bufferedSource = Source.fromFile("src/main/resources/secret_recipe.txt")
+//    val lines = bufferedSource.getLines.toList
+//    bufferedSource.close()
+//    val decodedIngredients = lines.map(x => decodeIngredient(x))
+//    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
+//    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
+//    bw.write(recipeText)
   }
 }
