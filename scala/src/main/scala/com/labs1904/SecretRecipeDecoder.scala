@@ -56,7 +56,10 @@ object SecretRecipeDecoder {
    */
   def decodeString(str: String): String = {
     // todo: implement me
-    "1 cup"
+    str.toList.map(x => ENCODING.get(x.toString) match {
+      case Some(a) => a
+      case _ => x
+    }).mkString("")
   }
 
   /**
@@ -66,7 +69,9 @@ object SecretRecipeDecoder {
    */
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
-    Ingredient("1 cup", "butter")
+    // Ingredient("1 cup", "butter")
+    val lineSplitDecoded = line.split("#").map(x => decodeString(x))
+    Ingredient(amount = lineSplitDecoded(0), description = lineSplitDecoded(1))
   }
 
   /**
@@ -75,5 +80,6 @@ object SecretRecipeDecoder {
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
+
   }
 }
