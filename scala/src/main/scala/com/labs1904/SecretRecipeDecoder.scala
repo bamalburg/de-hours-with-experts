@@ -1,6 +1,9 @@
 package com.labs1904
 
+import java.io.{BufferedWriter, FileWriter}
 import scala.collection.immutable.HashMap
+import scala.io.Source
+import scala.reflect.io.File
 
 /**
  * An ingredient has an amount and a description.
@@ -80,6 +83,25 @@ object SecretRecipeDecoder {
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
+//    val lines = Source.fromFile("src/main/resources/secret_recipe.txt").getLines.toList
+//    val decodedIngredients = lines.map(x => decodeIngredient(x))
+//    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
+//    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
+//    bw.write(recipeText)
 
+    val bufferedSource = Source.fromFile("src/main/resources/secret_recipe.txt")
+    val lines = bufferedSource.getLines.toList
+    val decodedIngredients = lines.map(x => decodeIngredient(x))
+    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
+    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
+    bw.write(recipeText)
+    bufferedSource.close()
+
+//    val bufferedSource = Source.fromFile("example.txt")
+//    for (line <- bufferedSource.getLines) {
+//      println(line.toUpperCase)
+//    }
+//
+//    bufferedSource.close
   }
 }
