@@ -1,6 +1,6 @@
 package com.labs1904
 
-import java.io.{BufferedWriter, FileWriter}
+import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import scala.collection.immutable.HashMap
 import scala.io.Source
 import scala.reflect.io.File
@@ -79,26 +79,17 @@ object SecretRecipeDecoder {
 
   /**
    * A program that decodes a secret recipe
-   * @param args
+   * @param args An array of strings
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
-    // both of these approaches seemed to work...or at least the first one did...
-    // but then stopped working and I don't know why
-
-    val lines = Source.fromFile("src/main/resources/secret_recipe.txt").getLines().toList
-    val decodedIngredients = lines.map(x => decodeIngredient(x))
-    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
-    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
-    bw.write(recipeText)
-
-//// alternate approach using .close()
-//    val bufferedSource = Source.fromFile("src/main/resources/secret_recipe.txt")
-//    val lines = bufferedSource.getLines.toList
-//    bufferedSource.close()
-//    val decodedIngredients = lines.map(x => decodeIngredient(x))
-//    val recipeText = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
-//    val bw = new BufferedWriter(new FileWriter("src/main/resources/decoded_recipe.txt"))
-//    bw.write(recipeText)
+    val inputFile = Source.fromFile("src/main/resources/secret_recipe.txt")
+    val ingredientLines = inputFile.getLines.toList
+    inputFile.close()
+    val decodedIngredients = ingredientLines.map(x => decodeIngredient(x))
+    val decodedRecipe = decodedIngredients.map(x => x.amount + " " + x.description).mkString("\n")
+    val outputFile = new PrintWriter("src/main/resources/decoded_recipe.txt")
+    outputFile.write(decodedRecipe)
+    outputFile.close()
   }
 }
