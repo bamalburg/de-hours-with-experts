@@ -59,10 +59,8 @@ object SecretRecipeDecoder {
    */
   def decodeString(str: String): String = {
     // todo: implement me
-    str.toList.map(x => ENCODING.get(x.toString) match {
-      case Some(a) => a
-      case _ => x
-    }).mkString("")
+      str.toList.map(x => ENCODING.getOrElse(x.toString, x)).mkString("")
+
   }
 
   /**
